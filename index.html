@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<!--
+  Site da JKM Calhas e Rufos.
+  Projeto, design e desenvolvimento: Jeff Company · https://jeffcompany.com.br
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="Jeff Company">
+<meta name="generator" content="Jeff Company · jeffcompany.com.br">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JKM Calhas e Rufos · Cotia e região</title>
+<meta name="description" content="Calhas, rufos, coifas e condutores em aço galvanizado, inox e alumínio. Fabricação e instalação própria em Cotia e Grande São Paulo desde 2001. Garantia de 12 meses. Peça seu orçamento pelo WhatsApp.">
+<meta property="og:title" content="JKM Calhas e Rufos · Fabricação e instalação própria">
+<meta property="og:description" content="Calhas, rufos e coifas sob medida em Cotia e região desde 2001. Visita técnica e garantia de 12 meses.">
+<meta property="og:image" content="img/hero-jkm.jpg">
+<link rel="icon" href="img/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F0F10;
+    --ink-2:#1A1A1C;
+    --zinc:#D8DBDE;
+    --zinc-2:#C4C8CC;
+    --paper:#F4F5F6;
+    --gold:#E2B433;
+    --gold-deep:#A57C16;
+    --white:#FFFFFF;
+    --text:#1D1E20;
+    --muted:#5C6066;
+    --whats:#25D366;
+    --ring:3px solid var(--gold);
+    --wrap:1180px;
+    --pad:clamp(16px,4vw,48px);
+    --display:'Barlow Condensed',Impact,sans-serif;
+    --body:'Barlow',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);color:var(--text);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+  :focus-visible{outline:var(--ring);outline-offset:3px}
+  .wrap{width:min(var(--wrap),100% - 2*var(--pad));margin-inline:auto}
+
+  /* eyebrow: mono, como etiqueta de peça */
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);display:flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:28px;height:2px;background:var(--gold)}
+  .dark .eyebrow{color:var(--gold)}
+  h1,h2,h3{font-family:var(--display);line-height:.95;letter-spacing:-.005em;text-transform:uppercase;font-weight:800}
+  h2{font-size:clamp(38px,5.4vw,66px);margin:14px 0 18px}
+  .lead{font-size:clamp(17px,1.4vw,20px);color:var(--muted);max-width:60ch}
+  .dark .lead{color:#B9BCC1}
+
+  /* ---------- botões ---------- */
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;padding:15px 24px;border:2px solid transparent;transition:transform .15s ease,background .15s ease,color .15s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn svg{width:22px;height:22px;flex:none}
+  .btn-gold{background:var(--gold);color:var(--ink)}
+  .btn-gold:hover{background:#F0C64A}
+  .btn-ghost{border-color:rgba(255,255,255,.45);color:var(--white)}
+  .btn-ghost:hover{border-color:var(--white)}
+  .btn-ink{background:var(--ink);color:var(--white)}
+  .btn-ink:hover{background:#2A2A2E}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(15,15,16,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--white)}
+  .brand img{width:46px;height:46px;border-radius:50%;border:2px solid var(--gold)}
+  .brand b{font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:.02em;line-height:1}
+  .brand small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-top:3px}
+  .nav ul{display:flex;gap:28px;list-style:none}
+  .nav ul a{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:#C9CCD1}
+  .nav ul a:hover{color:var(--gold)}
+  .nav .btn{padding:11px 18px;font-size:16px}
+  @media(max-width:860px){.nav ul{display:none}}
+  @media(max-width:420px){.nav .btn span{display:none}.nav .btn{padding:11px 13px}}
+
+  /* ---------- hero ---------- */
+  /* a foto já traz o rosto e o logo: o texto fica embaixo, sobre a calha, sem cobrir nenhum dos dois */
+  .hero{padding:0;color:var(--white);background:var(--ink)}
+  .hero-media{position:relative;isolation:isolate;overflow:hidden;background:var(--ink)}
+  /* --hz vai de 0 a 1 conforme o scroll (JS no fim da página): a foto aproxima no rosto */
+  .hero img.bg{width:100%;aspect-ratio:16/9;min-height:540px;max-height:calc(100vh - 70px);object-fit:cover;object-position:50% 22%;transform:scale(calc(1 + var(--hz,0) * .22));transform-origin:42% 28%;will-change:transform}
+  /* a foto tem caixa própria com overflow:hidden: o zoom nunca vaza para trás do texto */
+  .hero-photo{position:relative;overflow:hidden;line-height:0}
+  /* degradê nas quatro bordas: a foto se dissolve no preto da página */
+  .hero-photo::after{content:"";position:absolute;inset:0;pointer-events:none;background:
+      linear-gradient(90deg,var(--ink) 0%,rgba(15,15,16,.55) 6%,rgba(15,15,16,0) 18%,rgba(15,15,16,0) 90%,rgba(15,15,16,.6) 96%,var(--ink) 100%),
+      linear-gradient(180deg,rgba(15,15,16,.9) 0%,rgba(15,15,16,0) 18%),
+      linear-gradient(180deg,rgba(15,15,16,0) 30%,rgba(15,15,16,.8) 64%,var(--ink) 100%)}
+  .hero-copy{position:absolute;left:0;right:0;bottom:0;z-index:1;padding-bottom:36px}
+  .hero h1{font-size:clamp(38px,4.6vw,72px);max-width:22ch;margin:14px 0 16px}
+  .hero h1 em{font-style:normal;color:var(--gold)}
+  .hero p{font-size:clamp(16.5px,1.35vw,20px);max-width:54ch;color:#D5D8DC}
+  .hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 0}
+  @media(max-width:760px){
+    .hero img.bg{aspect-ratio:auto;height:58vh;height:58svh;min-height:340px;max-height:none;object-position:40% 15%}
+    .hero-photo::after{inset:0 0 -1px 0;background:
+      linear-gradient(90deg,var(--ink) 0%,rgba(15,15,16,0) 14%,rgba(15,15,16,0) 86%,var(--ink) 100%),
+      linear-gradient(180deg,rgba(15,15,16,.85) 0%,rgba(15,15,16,0) 16%),
+      linear-gradient(180deg,rgba(15,15,16,0) 40%,rgba(15,15,16,.85) 78%,var(--ink) 92%)}
+    .hero-copy{position:relative;margin-top:-44px;padding-bottom:34px}
+    .hero .eyebrow{font-size:11px;letter-spacing:.1em;gap:8px}
+    .hero .eyebrow::before{width:18px}
+  }
+
+  /* faixa de fatos: como etiqueta de chapa */
+  .facts{border-top:1px solid rgba(255,255,255,.18);display:grid;grid-template-columns:repeat(4,1fr)}
+  .facts div{padding:24px 28px;border-right:1px solid rgba(255,255,255,.12)}
+  .facts div:first-child{padding-left:0}
+  .facts div:last-child{border-right:0;padding-right:0}
+  .facts b{display:block;white-space:nowrap;font-family:var(--display);font-size:clamp(26px,3vw,42px);font-weight:800;line-height:1;color:var(--gold)}
+  .facts span{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#B4B8BE;display:block;margin-top:6px}
+  @media(max-width:760px){.facts{grid-template-columns:1fr 1fr}.facts div{padding:20px 18px}.facts div:nth-child(odd){padding-left:0}.facts div:nth-child(even){border-right:0;padding-right:0}.facts div:nth-child(n+3){border-top:1px solid rgba(255,255,255,.12)}}
+
+  /* ---------- perfis (assinatura) ---------- */
+  .perfil{width:100%;height:auto;display:block}
+  .perfil path,.perfil polyline{fill:none;stroke:var(--gold);stroke-width:2.6;stroke-linejoin:miter;stroke-linecap:square;vector-effect:non-scaling-stroke}
+  .perfil .cota{stroke:#8A8E94;stroke-width:1;stroke-dasharray:3 4}
+  .perfil text{font-family:var(--mono);font-size:10px;fill:#8A8E94;letter-spacing:.06em}
+  .perfil .draw{stroke-dasharray:1000;stroke-dashoffset:1000}
+  .in-view .perfil .draw{animation:draw 1.6s cubic-bezier(.5,0,.2,1) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  /* ---------- serviços ---------- */
+  section{padding:clamp(72px,9vw,120px) 0}
+  .servicos{background:var(--zinc)}
+  .head{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:56px}
+  @media(max-width:860px){.head{grid-template-columns:1fr;gap:12px}}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--zinc-2)}
+  .card{background:var(--paper);padding:34px 30px 38px;display:flex;flex-direction:column;gap:18px;position:relative;transition:background .2s}
+  .card:hover{background:var(--white)}
+  .card .code{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .card svg{margin:6px 0 4px;max-width:300px}
+  .card h3{font-size:34px;font-weight:800}
+  .card p{color:var(--muted);font-size:16.5px}
+  .card ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px}
+  .card li{font-family:var(--mono);font-size:11.5px;padding:5px 9px;border:1px solid var(--zinc-2);color:#3A3D42;letter-spacing:.02em}
+  @media(max-width:900px){.grid3{grid-template-columns:1fr}}
+
+  /* ---------- materiais ---------- */
+  .materiais{background:var(--ink);color:var(--white)}
+  .spec{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(255,255,255,.14);margin-top:48px}
+  .spec > div{padding:32px 30px;border-right:1px solid rgba(255,255,255,.14)}
+  .spec > div:last-child{border-right:0}
+  .spec .swatch{height:74px;margin-bottom:22px;position:relative;overflow:hidden}
+  .swatch.galv{background:
+      radial-gradient(ellipse 14px 9px at 12% 30%,rgba(255,255,255,.55),transparent 70%),
+      radial-gradient(ellipse 20px 10px at 55% 70%,rgba(255,255,255,.45),transparent 70%),
+      radial-gradient(ellipse 12px 8px at 80% 25%,rgba(255,255,255,.5),transparent 70%),
+      radial-gradient(ellipse 16px 12px at 35% 85%,rgba(255,255,255,.35),transparent 70%),
+      radial-gradient(ellipse 10px 6px at 90% 80%,rgba(255,255,255,.5),transparent 70%),
+      linear-gradient(120deg,#9BA1A8,#C7CCD1 50%,#8F959C)}
+  .swatch.inox{background:linear-gradient(100deg,#7E838A 0%,#E4E7EA 28%,#A6ABB1 46%,#F1F3F5 62%,#8C9198 100%)}
+  .swatch.alu{background:linear-gradient(180deg,#D7DADD,#B9BDC2);}
+  .swatch.alu::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 6px,rgba(255,255,255,.35) 6px 7px)}
+  .spec h3{font-size:30px;margin-bottom:8px}
+  .spec .use{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .spec p{color:#B9BCC1;font-size:16px}
+  .nota{margin-top:26px;display:flex;gap:14px;align-items:flex-start;color:#B9BCC1;max-width:70ch;font-size:16px}
+  .nota b{color:var(--white)}
+  @media(max-width:860px){.spec{grid-template-columns:1fr}.spec>div{border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}.spec>div:last-child{border-bottom:0}}
+
+  /* ---------- obras ---------- */
+  .obras{background:var(--paper)}
+  .masonry{columns:3;column-gap:14px;margin-top:48px}
+  .masonry figure{break-inside:avoid;margin:0 0 14px;position:relative;overflow:hidden;background:var(--zinc)}
+  .masonry img{width:100%;transition:transform .5s ease}
+  .masonry figure:hover img{transform:scale(1.03)}
+  .masonry figcaption{position:absolute;left:0;right:0;bottom:0;padding:32px 14px 12px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--white);background:linear-gradient(180deg,transparent,rgba(15,15,16,.85))}
+  @media(max-width:900px){.masonry{columns:2;column-gap:10px}.masonry figure{margin-bottom:10px}.masonry figcaption{font-size:10px;padding:24px 10px 9px}}
+  @media(max-width:380px){.masonry{columns:1}}
+
+  /* ---------- redes sociais ---------- */
+  .redes{background:var(--ink);color:var(--white)}
+  .redes .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,5vw,72px);align-items:center}
+  .redes .handle{display:block;font-family:var(--display);font-weight:800;font-size:clamp(44px,6vw,84px);line-height:.95;color:var(--gold);text-decoration:none;margin:14px 0 18px;letter-spacing:-.01em}
+  .redes .handle:hover{color:#F0C64A}
+  .redes .lead{margin-bottom:28px}
+  .social-btns{display:flex;flex-wrap:wrap;gap:12px}
+  .btn-insta{background:linear-gradient(45deg,#F9CE34 0%,#EE2A7B 50%,#6228D7 100%);color:#fff}
+  .btn-face{background:#1877F2;color:#fff}
+  .btn-tiktok{background:#000;color:#fff;border-color:rgba(255,255,255,.35);box-shadow:-2px -2px 0 #25F4EE,2px 2px 0 #FE2C55}
+  .feed{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .feed a{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;background:var(--ink-2)}
+  .feed img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease,filter .3s ease}
+  .feed a::after{content:"";position:absolute;inset:0;background:rgba(15,15,16,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='1.8'%3E%3Crect x='3' y='3' width='18' height='18' rx='5'/%3E%3Ccircle cx='12' cy='12' r='4.2'/%3E%3Ccircle cx='17.3' cy='6.7' r='1' fill='%23fff' stroke='none'/%3E%3C/svg%3E") center/34px no-repeat;opacity:0;transition:opacity .25s}
+  .feed a:hover::after,.feed a:focus-visible::after{opacity:1}
+  .feed a:hover img{transform:scale(1.06)}
+  @media(max-width:900px){.redes .wrap{grid-template-columns:1fr}}
+  @media(max-width:520px){.social-btns .btn{width:100%;justify-content:center}}
+
+  /* ícones de rede no topo */
+  .nav-right{display:flex;align-items:center;gap:8px}
+  .nav-social{display:grid;place-items:center;width:40px;height:40px;color:#C9CCD1;border:1px solid rgba(255,255,255,.16);transition:color .15s,border-color .15s}
+  .nav-social:hover{color:var(--gold);border-color:var(--gold)}
+  .nav-social svg{width:20px;height:20px}
+  @media(max-width:520px){.nav-social{display:none}}
+
+  /* ---------- processo (é sequência real, por isso numerado) ---------- */
+  .processo{background:var(--zinc)}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:48px;background:var(--zinc-2);counter-reset:passo}
+  .steps div{background:var(--paper);padding:26px 22px 30px;counter-increment:passo}
+  .steps div::before{content:counter(passo,decimal-leading-zero);font-family:var(--display);font-size:44px;font-weight:800;color:var(--gold);line-height:1;display:block;margin-bottom:14px}
+  .steps h3{font-size:24px;margin-bottom:8px}
+  .steps p{color:var(--muted);font-size:15.5px}
+  @media(max-width:1000px){.steps{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+  /* ---------- sobre ---------- */
+  .sobre{background:var(--ink);color:var(--white)}
+  .sobre .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .sobre figure{position:relative}
+  .sobre img{width:100%;height:auto}
+  .sobre figcaption{position:absolute;left:0;bottom:0;background:var(--gold);color:var(--ink);font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px}
+  .sobre p{color:#B9BCC1;margin-bottom:16px;font-size:17px}
+  .sobre p b{color:var(--white);font-weight:600}
+  @media(max-width:900px){.sobre .wrap{grid-template-columns:1fr}}
+
+  /* ---------- contato ---------- */
+  .contato{background:var(--paper)}
+  .contato .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  .ctas{display:flex;flex-direction:column;gap:12px;margin:26px 0 34px}
+  .ctas .btn{width:fit-content}
+  dl{display:grid;grid-template-columns:auto 1fr;gap:12px 24px;font-size:16px}
+  dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);padding-top:4px}
+  dd a{text-decoration:none;font-weight:500}
+  dd a:hover{color:var(--gold-deep);text-decoration:underline}
+  .map{width:100%;aspect-ratio:1/1;border:0;filter:grayscale(.3) contrast(1.05);background:var(--zinc)}
+  .horario{display:grid;grid-template-columns:auto auto;gap:4px 18px;width:fit-content}
+  @media(max-width:900px){.contato .wrap{grid-template-columns:1fr}.map{aspect-ratio:4/3}}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:#8A8E94;padding:34px 0;font-size:14px}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center}
+  footer a{color:#B9BCC1;text-decoration:none}
+  footer a:hover{color:var(--gold)}
+  footer .credito-agencia{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);justify-content:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .credito-agencia a{display:inline-flex;align-items:center;gap:7px;color:var(--gold);font-weight:500;padding:6px 12px;border:1px solid rgba(226,180,51,.35);transition:background .15s,color .15s}
+  .credito-agencia a:hover{background:var(--gold);color:var(--ink)}
+  .credito-agencia svg{width:15px;height:15px}
+  footer .social{display:flex;gap:18px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+
+  /* ---------- whatsapp flutuante ---------- */
+  .fab{position:fixed;right:18px;bottom:18px;z-index:60;width:60px;height:60px;border-radius:50%;background:var(--whats);display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .15s}
+  .fab:hover{transform:scale(1.06)}
+  .fab svg{width:32px;height:32px;fill:#fff}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in-view{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .perfil .draw{stroke-dashoffset:0;animation:none}
+    .btn:hover,.fab:hover,.masonry figure:hover img{transform:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="JKM Calhas e Rufos, início">
+      <img src="img/logo.jpg" alt="">
+      <div><b>JKM</b><small>Calhas e Rufos</small></div>
+    </a>
+    <ul>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#materiais">Materiais</a></li>
+      <li><a href="#obras">Obras</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="nav-right">
+    <a class="nav-social" href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener" aria-label="Instagram da JKM">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a class="nav-social" href="https://www.facebook.com/profile.php?id=100086321359268" target="_blank" rel="noopener" aria-label="Facebook da JKM">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.500-1.500h1.600V4.400c-.3 0-1.200-.100-2.300-.100-2.300 0-3.800 1.400-3.800 3.900v2.300H8v3h2.500V21z"/></svg>
+    </a>
+    <a class="nav-social" href="https://www.tiktok.com/@jkmcalhaserufos" target="_blank" rel="noopener" aria-label="TikTok da JKM">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.3 2.300 1.700 3.900 4 4.100v3.100c-1.400.1-2.700-.3-4-1.100v6.300c0 3.300-2.500 5.600-5.600 5.600A5.500 5.500 0 0 1 5.400 15.500c0-3.300 2.900-5.900 6.300-5.400v3.200c-1.500-.4-3.100.6-3.100 2.300 0 1.400 1.100 2.400 2.400 2.400 1.400 0 2.400-1 2.400-2.600V3z"/></svg>
+    </a>
+    <a class="btn btn-gold" href="https://wa.me/5511913337268?text=Ol%C3%A1!%20Vi%20o%20site%20da%20JKM%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3z"/></svg>
+      <span>Orçamento</span>
+    </a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero dark">
+  <div class="hero-media">
+  <div class="hero-photo"><img class="bg" src="img/hero-jkm.jpg" alt="Profissional da JKM Calhas e Rufos medindo uma calha de aço com trena na fábrica" fetchpriority="high"></div>
+  <div class="wrap hero-copy">
+    <p class="eyebrow">Cotia · Grande SP · desde 2001</p>
+    <h1>Calha, rufo e coifa <em>na medida</em> da sua obra.</h1>
+    <p>Cortamos e dobramos a chapa na nossa fábrica e instalamos com equipe própria. Sem intermediário, sem peça de prateleira que não encaixa.</p>
+    <div class="cta">
+      <a class="btn btn-gold" href="https://wa.me/5511913337268?text=Ol%C3%A1!%20Vi%20o%20site%20da%20JKM%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3z"/></svg>
+        Pedir orçamento no WhatsApp
+      </a>
+      <a class="btn btn-ghost" href="#servicos">Ver serviços</a>
+    </div>
+  </div>
+  </div>
+  <div class="wrap">
+    <div class="facts">
+      <div><b>Desde 2001</b><span>corte e dobra de metais</span></div>
+      <div><b>12</b><span>meses de garantia</span></div>
+      <div><b>100%</b><span>chapa nacional</span></div>
+      <div><b>Própria</b><span>equipe de instalação</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVIÇOS ================= -->
+<section class="servicos" id="servicos">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <p class="eyebrow">O que fabricamos</p>
+        <h2>Peça certa para cada ponto onde a água passa.</h2>
+      </div>
+      <p class="lead">Cada peça é feita a partir do perfil do seu telhado: modelo, queda d'água, comprimento e acabamento. Nada vem pronto de prateleira.</p>
+    </div>
+
+    <div class="grid3 reveal">
+      <article class="card">
+        <span class="code">Perfil · seção transversal</span>
+        <svg class="perfil" viewBox="0 0 220 110" role="img" aria-label="Desenho do perfil de uma calha">
+          <polyline class="draw" points="20,22 20,78 48,96 172,96 200,78 200,22 188,22"/>
+          <polyline class="draw" points="20,22 32,22"/>
+          <line class="cota" x1="20" y1="14" x2="200" y2="14" stroke="#8A8E94"/>
+          <text x="96" y="10">LARGURA</text>
+        </svg>
+        <h3>Calhas</h3>
+        <p>Recolhem a água que escorre do telhado ou terraço e a levam até o condutor. Dimensionamos pela área do telhado para não transbordar na chuva forte.</p>
+        <ul><li>Calha americana</li><li>Calha de platibanda</li><li>Calha moldura</li><li>Condutores e bocais</li></ul>
+      </article>
+
+      <article class="card">
+        <span class="code">Perfil · seção transversal</span>
+        <svg class="perfil" viewBox="0 0 220 110" role="img" aria-label="Desenho do perfil de um rufo com pingadeira">
+          <polyline class="draw" points="28,96 28,34 40,22 170,22 182,34 182,70 194,82 182,92"/>
+          <line class="cota" x1="28" y1="14" x2="182" y2="14" stroke="#8A8E94"/>
+          <text x="52" y="10">ENCOSTO + PINGADEIRA</text>
+        </svg>
+        <h3>Rufos</h3>
+        <p>Vedam o encontro entre telhado, parede e muro para a água não infiltrar. Fabricados no modelo que a sua situação pede.</p>
+        <ul><li>Rufo pingadeira</li><li>Rufo de encosto</li><li>Rufo capa</li><li>Rufo de platibanda</li></ul>
+      </article>
+
+      <article class="card">
+        <span class="code">Perfil · vista frontal</span>
+        <svg class="perfil" viewBox="0 0 220 110" role="img" aria-label="Desenho de uma coifa piramidal com duto">
+          <polyline class="draw" points="96,22 96,48 24,86 24,98 196,98 196,86 124,48 124,22"/>
+          <line class="cota" x1="24" y1="14" x2="196" y2="14" stroke="#8A8E94"/>
+          <text x="82" y="10">BOCA · DUTO</text>
+        </svg>
+        <h3>Coifas</h3>
+        <p>Para cozinhas e áreas gourmet: retiram gordura, vapor e calor do fogão, cooktop ou churrasqueira. Feitas no formato e na cor do seu ambiente.</p>
+        <ul><li>Piramidal</li><li>Ilha</li><li>Parede</li><li>Churrasqueira</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MATERIAIS ================= -->
+<section class="materiais dark" id="materiais">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Matéria-prima</p>
+      <h2>Três chapas. A escolha depende de onde a peça vai ficar.</h2>
+      <p class="lead">Indicamos o material na visita técnica, de acordo com exposição, aparência desejada e orçamento.</p>
+    </div>
+    <div class="spec reveal">
+      <div>
+        <div class="swatch galv" aria-hidden="true"></div>
+        <p class="use">Uso geral · custo-benefício</p>
+        <h3>Aço galvanizado</h3>
+        <p>O padrão para calhas e rufos. Chapa de aço com camada de zinco que protege da ferrugem. Aceita pintura na cor do telhado ou da fachada.</p>
+      </div>
+      <div>
+        <div class="swatch inox" aria-hidden="true"></div>
+        <p class="use">Cozinhas · áreas gourmet · litoral</p>
+        <h3>Aço inox</h3>
+        <p>Não enferruja e não mancha. É o material das coifas, grelhas e de peças expostas que precisam ficar bonitas por muitos anos.</p>
+      </div>
+      <div>
+        <div class="swatch alu" aria-hidden="true"></div>
+        <p class="use">Leve · sem corrosão</p>
+        <h3>Alumínio</h3>
+        <p>Metade do peso do aço e imune à ferrugem. Bom para estruturas leves, grandes vãos e acabamentos que não podem oxidar.</p>
+      </div>
+    </div>
+    <p class="nota"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E2B433" stroke-width="2" aria-hidden="true"><path d="M12 2 3 6v6c0 5 3.8 9.4 9 10 5.2-.6 9-5 9-10V6z"/><path d="m9 12 2 2 4-4"/></svg><span><b>Só trabalhamos com chapa nacional</b> e damos 12 meses de garantia em todo serviço instalado por nós. Peça importada de origem duvidosa a gente não usa.</span></p>
+  </div>
+</section>
+
+<!-- ================= OBRAS ================= -->
+<section class="obras" id="obras">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <p class="eyebrow">Obras entregues</p>
+        <h2>Serviço limpo, feito para durar.</h2>
+      </div>
+      <p class="lead">Residências, galpões e áreas gourmet em Cotia e região. Mais fotos no nosso <a href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener">Instagram</a>.</p>
+    </div>
+    <div class="masonry reveal">
+      <figure><img src="img/hero-casa-madeira.jpg" alt="Casa de madeira com calha e corrente de descida instaladas pela JKM" loading="lazy"><figcaption>Calha e corrente de descida · casa de madeira</figcaption></figure>
+      <figure><img src="img/kombi-obra.jpg" alt="Kombi vermelha da JKM em frente a residência moderna" loading="lazy"><figcaption>Residência · Cotia</figcaption></figure>
+      <figure><img src="img/calha-instalacao-sobrado.jpg" alt="Instalador da JKM fixando calha branca com corrente de descida em sobrado" loading="lazy"><figcaption>Calha e condutor · instalação</figcaption></figure>
+      <figure><img src="img/coifa-preta.jpg" alt="Coifa piramidal preta sobre churrasqueira em área gourmet" loading="lazy"><figcaption>Coifa piramidal · área gourmet</figcaption></figure>
+      <figure><img src="img/hero-rufos.jpg" alt="Rufos pretos instalados em platibanda de telhado" loading="lazy"><figcaption>Rufo pintado de preto · platibanda</figcaption></figure>
+      <figure><img src="img/rufo-platibanda.jpg" alt="Rufo galvanizado em platibanda de telhado" loading="lazy"><figcaption>Rufo de platibanda · galvanizado</figcaption></figure>
+      <figure><img src="img/varanda-acabamento.jpg" alt="Sobrado com calhas e acabamentos metálicos na varanda" loading="lazy"><figcaption>Calhas e acabamentos · sobrado</figcaption></figure>
+      <figure><img src="img/calha-galvanizada.jpg" alt="Calha galvanizada instalada entre estruturas de madeira" loading="lazy"><figcaption>Calha central · galvanizado</figcaption></figure>
+      <figure><img src="img/rufo-platibanda-condominio.jpg" alt="Rufos galvanizados em platibanda de casa em condomínio" loading="lazy"><figcaption>Rufo de platibanda · condomínio</figcaption></figure>
+      <figure><img src="img/rufo-telhado-galvanizado.jpg" alt="Telhado com rufos e calha galvanizados em todo o perímetro" loading="lazy"><figcaption>Rufos e calha · perímetro completo</figcaption></figure>
+      <figure><img src="img/pergolado-rufo.jpg" alt="Rufo marrom em pergolado de madeira com pilares de tijolo" loading="lazy"><figcaption>Rufo pintado · pergolado</figcaption></figure>
+      <figure><img src="img/coifa-churrasqueira.jpg" alt="Coifa preta com grelha de inox em churrasqueira" loading="lazy"><figcaption>Coifa e grelha · churrasqueira</figcaption></figure>
+      <figure><img src="img/condutor-galpao.jpg" alt="Condutor galvanizado ao longo da fachada de galpão industrial" loading="lazy"><figcaption>Condutor · galpão industrial</figcaption></figure>
+      <figure><img src="img/churrasqueira-inox.jpg" alt="Grelha e espetos de inox em churrasqueira de cozinha planejada" loading="lazy"><figcaption>Grelha argentina · inox</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REDES SOCIAIS ================= -->
+<section class="redes dark" id="redes">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Acompanhe as obras</p>
+      <a class="handle" href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener">@jkmcalhas</a>
+      <p class="lead">É nas redes que a JKM mostra o dia a dia: peça saindo da dobradeira, instalação em andamento e obra entregue. Segue lá para ver o serviço antes de contratar.</p>
+      <div class="social-btns">
+        <a class="btn btn-insta" href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+          Seguir no Instagram
+        </a>
+        <a class="btn btn-face" href="https://www.facebook.com/profile.php?id=100086321359268" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.500-1.500h1.600V4.400c-.3 0-1.200-.100-2.300-.100-2.300 0-3.800 1.400-3.800 3.900v2.300H8v3h2.500V21z"/></svg>
+          Curtir no Facebook
+        </a>
+        <a class="btn btn-tiktok" href="https://www.tiktok.com/@jkmcalhaserufos" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.3 2.300 1.700 3.900 4 4.100v3.100c-1.400.1-2.700-.3-4-1.100v6.300c0 3.300-2.500 5.600-5.600 5.600A5.500 5.500 0 0 1 5.400 15.500c0-3.300 2.900-5.900 6.300-5.400v3.200c-1.500-.4-3.100.6-3.100 2.300 0 1.400 1.100 2.400 2.400 2.400 1.400 0 2.400-1 2.400-2.600V3z"/></svg>
+          Ver no TikTok
+        </a>
+      </div>
+    </div>
+    <div class="feed reveal" aria-label="Fotos do Instagram da JKM">
+      <a href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener" aria-label="Ver no Instagram"><img src="img/hero-casa-madeira.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener" aria-label="Ver no Instagram"><img src="img/calha-instalacao-sobrado.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener" aria-label="Ver no Instagram"><img src="img/coifa-preta.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener" aria-label="Ver no Instagram"><img src="img/pergolado-rufo.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener" aria-label="Ver no Instagram"><img src="img/kombi-obra.jpg" alt="" loading="lazy"></a>
+      <a href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener" aria-label="Ver no Instagram"><img src="img/rufo-platibanda-condominio.jpg" alt="" loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESSO ================= -->
+<section class="processo" id="processo">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Como funciona</p>
+      <h2>Do WhatsApp à peça instalada.</h2>
+    </div>
+    <div class="steps reveal">
+      <div><h3>Você chama</h3><p>Manda uma mensagem com o endereço e um telefone de contato. Se tiver foto do telhado, ajuda.</p></div>
+      <div><h3>Visita técnica</h3><p>Vamos até a obra medir e ver a queda d'água. É aí que definimos modelo e material.</p></div>
+      <div><h3>Orçamento</h3><p>Você recebe o valor fechado, com material, fabricação e instalação discriminados.</p></div>
+      <div><h3>Fabricação</h3><p>Cortamos e dobramos as peças na nossa fábrica em Cotia, na medida exata do projeto.</p></div>
+      <div><h3>Instalação</h3><p>Nossa própria equipe instala e testa. Serviço com garantia de 12 meses.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOBRE ================= -->
+<section class="sobre dark" id="sobre">
+  <div class="wrap">
+    <figure class="reveal">
+      <img src="img/kombi-obra.jpg" alt="Kombi vermelha da JKM Calhas e Rufos estacionada em frente a uma obra" loading="lazy">
+      <figcaption>A Kombi da JKM · em obra</figcaption>
+    </figure>
+    <div class="reveal">
+      <p class="eyebrow">Quem somos</p>
+      <h2>Corte e dobra de metais desde 2001.</h2>
+      <p>A JKM nasceu em Cotia como uma oficina de corte e dobra. Hoje fabrica e instala calhas, rufos, coifas e condutores em toda a Grande São Paulo, <b>sempre com a mesma equipe do começo ao fim</b>: quem mede é quem fabrica e quem instala.</p>
+      <p>Por isso a peça encaixa. E por isso conseguimos dar garantia de 12 meses em tudo que instalamos.</p>
+      <p>Atendemos obra nova, reforma e manutenção, de casa a galpão industrial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section class="contato" id="contato">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Contato</p>
+      <h2>Agende sua visita técnica.</h2>
+      <p class="lead">Mande o endereço da obra e um telefone. Respondemos em horário comercial.</p>
+      <div class="ctas">
+        <a class="btn btn-gold" href="https://wa.me/5511913337268?text=Ol%C3%A1!%20Quero%20agendar%20uma%20visita%20t%C3%A9cnica." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3z"/></svg>
+          WhatsApp (11) 91333-7268
+        </a>
+        <a class="btn btn-ink" href="tel:+551141480953">Ligar (11) 4148-0953</a>
+      </div>
+      <dl>
+        <dt>Celular</dt><dd><a href="tel:+5511974244778">(11) 97424-4778</a></dd>
+        <dt>E-mail</dt><dd><a href="mailto:sergioacalhas@hotmail.com">sergioacalhas@hotmail.com</a></dd>
+        <dt>Endereço</dt><dd>Av. Prof. José Barreto, 1811<br>Jardim Dinorah · Cotia · SP</dd>
+        <dt>Horário</dt><dd><div class="horario"><span>Seg a sex</span><span>8h–12h · 13h–17h</span><span>Sábado</span><span>8h–12h</span><span>Domingo</span><span>Fechado</span></div></dd>
+        <dt>Redes</dt><dd><a href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/profile.php?id=100086321359268" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.tiktok.com/@jkmcalhaserufos" target="_blank" rel="noopener">TikTok</a></dd>
+      </dl>
+    </div>
+    <div class="reveal">
+      <iframe class="map" title="Mapa: JKM Calhas e Rufos em Cotia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+        src="https://www.google.com/maps?q=JKM+Calhas+e+Coifas,+Av.+Prof.+Jos%C3%A9+Barreto,+1811,+Cotia+-+SP&output=embed&hl=pt-BR"></iframe>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="ano"></span> JKM Calhas e Rufos · Cotia, SP</span>
+    <div class="social">
+      <a href="https://www.instagram.com/jkmcalhas/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=100086321359268" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.tiktok.com/@jkmcalhaserufos" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://maps.app.goo.gl/iDMoV8BB2hm4vbGi8" target="_blank" rel="noopener">Google Maps</a>
+    </div>
+  </div>
+  <!-- crédito da agência -->
+  <div class="wrap credito-agencia">
+    <span>Site desenvolvido por</span>
+    <a href="https://jeffcompany.com.br" target="_blank" rel="noopener" aria-label="Jeff Company, agência que desenvolveu este site">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6 2.5 12 8 18M16 6l5.500 6L16 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg>
+      Jeff Company
+    </a>
+  </div>
+</footer>
+
+<a class="fab" href="https://wa.me/5511913337268?text=Ol%C3%A1!%20Vi%20o%20site%20da%20JKM%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3z"/></svg>
+</a>
+
+<script>
+  document.getElementById('ano').textContent = new Date().getFullYear();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // zoom do hero: aproxima a foto enquanto a pessoa desce a página
+  const heroMedia = document.querySelector('.hero-media');
+  const heroImg = heroMedia.querySelector('img.bg');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+    const zoom = () => {
+      const p = Math.min(1, Math.max(0, scrollY / heroMedia.offsetHeight));
+      heroImg.style.setProperty('--hz', p.toFixed(3));
+      ticking = false;
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(zoom); } }, { passive: true });
+    zoom();
+  }
+</script>
+</body>
+</html>
