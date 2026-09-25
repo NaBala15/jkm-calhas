@@ -50,14 +50,15 @@ function soOEndereco(valor) {
     .replace(/[/?#].*$/, '');
 }
 
-/* Só a navegação de uma pessoa interessa. Um arquivo com extensão conhecida
-   (.jpg, .css, .woff2) nunca é página; o resto se decide pelo cabeçalho
-   Accept, que o navegador manda pedindo text/html. */
+/* Página ou arquivo, decidido só pelo endereço: com extensão conhecida
+   (.jpg, .css, .woff2) é arquivo; .html e endereço sem extensão são página.
+   Já tentei decidir pelo cabeçalho Accept e estava errado: curl, monitor de
+   uptime e boa parte dos robôs não pedem text/html, e recebiam o site no ar
+   mesmo com o interruptor desligado. Tirar do ar vale para todo mundo. */
 function ehPedidoDePagina(request, url) {
   if (request.method !== 'GET' && request.method !== 'HEAD') return false;
   const temExtensao = /\.[a-z0-9]{2,5}$/i.test(url.pathname);
-  if (temExtensao && !/\.html?$/i.test(url.pathname)) return false;
-  return (request.headers.get('accept') || '').includes('text/html');
+  return temExtensao ? /\.html?$/i.test(url.pathname) : true;
 }
 
 /* A consulta pede TRÊS CAMPOS, e não a ficha inteira. A ficha tem WhatsApp,

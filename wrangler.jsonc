@@ -25,7 +25,20 @@
   // por serem material do projeto, não parte do site.
   "assets": {
     "directory": "./",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+
+    // A PEGADINHA QUE CUSTOU UMA PUBLICAÇÃO, em 24/09/2026.
+    //
+    // Num Worker com arquivos estáticos, o Cloudflare entrega o arquivo
+    // ANTES de rodar o Worker, sempre que o endereço casa com um arquivo
+    // que existe. Ou seja: o porteiro nunca era chamado em "/", porque "/"
+    // casa com o index.html. Ele só rodava em endereço que NÃO existe.
+    // Por fora parecia que o interruptor continuava sem funcionar.
+    //
+    // Esta lista diz quais endereços passam pelo Worker primeiro. São só as
+    // PÁGINAS: assim uma visita custa uma execução, e não uma por foto.
+    // Site com mais de uma página precisa acrescentar as outras aqui.
+    "run_worker_first": ["/", "/index.html"]
   },
 
   // O MESMO banco do painel, só para leitura. O painel escreve quando você
