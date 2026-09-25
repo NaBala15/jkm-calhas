@@ -187,6 +187,20 @@ export default {
     if (ehPedidoDePagina(request, url)) {
       const estado = await estadoDoSite(env, endereco);
       if (!estado.noAr) return paginaIndisponivel();
+
+      /* A página sai daqui com um carimbo. Ele não muda nada para quem
+         visita, e serve para uma pergunta que já enganou uma vez: "o
+         porteiro está mesmo na frente da página?". Sem ele, a única forma
+         de descobrir era desligar o site de um cliente para ver se caía.
+
+             curl -I https://o-site/ | grep porteiro
+
+         Sem o carimbo, o Cloudflare está entregando o arquivo direto e o
+         interruptor não vale nada — falta `run_worker_first`. */
+      const resposta = await env.ASSETS.fetch(request);
+      const carimbada = new Response(resposta.body, resposta);
+      carimbada.headers.set('x-porteiro', 'no-ar');
+      return carimbada;
     }
 
     return env.ASSETS.fetch(request);
