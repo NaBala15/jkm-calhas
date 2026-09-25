@@ -1,0 +1,49 @@
+// ==========================================================================
+// Configuração do Worker do site da JKM Calhas
+//
+// Até setembro de 2026 este site era só arquivo estático, configurado no
+// painel do Cloudflare, sem arquivo nenhum aqui. Agora ele tem um Worker
+// (src/worker.js) que confere no banco do painel se o site está no ar.
+//
+// NO CLOUDFLARE, o Worker que usa este arquivo precisa ter:
+//   - nome exatamente igual ao "name" abaixo
+//   - diretório raiz VAZIO (o repositório inteiro é a raiz do site)
+//   - comando de implantação "npx wrangler deploy"
+//
+// Se o nome não bater com o Worker que já existe, a publicação cria um
+// Worker NOVO, e o site continua sendo servido pelo antigo — ou seja, nada
+// acontece. Confira o nome antes.
+// ==========================================================================
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jkm-calhas",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-01",
+
+  // O site inteiro sai desta pasta. O que NÃO pode ser servido está no
+  // .assetsignore — inclusive as fotos soltas e os atalhos que moram aqui
+  // por serem material do projeto, não parte do site.
+  "assets": {
+    "directory": "./",
+    "binding": "ASSETS"
+  },
+
+  // O MESMO banco do painel, só para leitura. O painel escreve quando você
+  // vira o interruptor da ficha; aqui o site só lê. O database_id não é
+  // senha: sozinho não dá acesso a nada.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "jeff-company-painel",
+      "database_id": "43fb8fac-ca5c-4c0f-b7b1-96f3810428a7"
+    }
+  ],
+
+  // Todo Worker nasce com um endereço .workers.dev. O do cliente não
+  // precisa de um, e um endereço extra só serviria para o site aparecer
+  // duplicado na busca. Desligado a cada publicação.
+  "workers_dev": false,
+  "preview_urls": false,
+
+  "observability": { "enabled": true }
+}

@@ -1,7 +1,14 @@
 # Só o site vai para o repositório. Fotos originais, atalhos e a proposta
 # comercial (tem preço) ficam só na pasta local.
+#
+# É lista BRANCA: tudo começa de fora e só entra o que estiver listado
+# abaixo. Arquivo novo que precisa ir para o ar tem que ganhar uma linha
+# aqui, senão some sem avisar.
 /*
 !/.gitignore
+!/.assetsignore
 !/index.html
 !/preview.jpg
 !/img/
+!/src/
+!/wrangler.jsonc

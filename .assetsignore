@@ -1,0 +1,8 @@
+# O que mora no repositório mas NÃO pode ser entregue pelo site.
+#
+# Sem esta lista, jkmcalhas.jeffcompany.com.br devolveria o próprio código
+# do Worker a quem pedisse /src/worker.js. Mesma sintaxe do .gitignore.
+
+wrangler.jsonc
+src/
+.assetsignore
